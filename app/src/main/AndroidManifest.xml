@@ -10,6 +10,12 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.FMath">
         <activity
+            android:name=".Activities.PlayTableActivity"
+            android:exported="false" />
+        <activity
+            android:name=".Activities.TestTableActivity"
+            android:exported="false" />
+        <activity
             android:name=".Activities.TableActivity"
             android:exported="false" />
         <activity
