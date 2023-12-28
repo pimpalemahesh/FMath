@@ -6,6 +6,8 @@ import androidx.appcompat.widget.AppCompatButton;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -73,7 +75,11 @@ public class PlayActivity extends AppCompatActivity {
             }
         });
 
-        next.setOnClickListener(v -> placeNumbers());
+        next.setOnClickListener(v -> {
+            result.setText("");
+            result.setTextColor(getResources().getColor(R.color.black));
+            placeNumbers();
+        });
 
     }
 
@@ -81,8 +87,14 @@ public class PlayActivity extends AppCompatActivity {
         Random random = new Random();
         number1 = random.nextInt(100) + 1;
         number2 = random.nextInt(100) + 1;
-        num1.setText(String.valueOf(number1));
-        num2.setText(String.valueOf(number2));
+        if(number1 > number2){
+            num1.setText(String.valueOf(number1));
+            num2.setText(String.valueOf(number2));
+        } else{
+            num1.setText(String.valueOf(number2));
+            num2.setText(String.valueOf(number1));
+        }
+
     }
 
     private int calculate(String operation){

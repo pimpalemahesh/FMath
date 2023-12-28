@@ -13,6 +13,7 @@ import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.view.View;
 import android.widget.GridView;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -28,6 +29,7 @@ public class MainActivity extends AppCompatActivity {
 
     private CardView tableCardView, arithmeticCardView;
     private TextView score;
+    private ImageView star1, star2, star3, star4, star5;
 
     private int right = 0, wrong = 0;
 
@@ -51,7 +53,7 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    private void placeScoreValue() {
+    private int placeScoreValue() {
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
 
             right = preferences.getInt("RIGHT", 0);
@@ -63,20 +65,45 @@ public class MainActivity extends AppCompatActivity {
             } else{
                 score.setTextColor(getResources().getColor(orange));
             }
+            return total;
     }
 
     @Override
     protected void onStart() {
         super.onStart();
+
+        star1 = findViewById(R.id.star1);
+        star2 = findViewById(R.id.star2);
+        star3 = findViewById(R.id.star3);
+        star4 = findViewById(R.id.star4);
+        star5 = findViewById(R.id.star5);
+
+        int total = 0;
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
         if(preferences.contains("RIGHT") && preferences.contains("WRONG")){
-            placeScoreValue();
+            total = placeScoreValue();
         } else{
             SharedPreferences.Editor editor = preferences.edit();
             editor.putInt("RIGHT", 0);
             editor.putInt("WRONG", 0);
             editor.apply();
             score.setText("0");
+        }
+
+        if(total >= 100){
+            star1.setVisibility(View.VISIBLE);
+        }
+        else if(total >= 500){
+            star2.setVisibility(View.VISIBLE);
+        }
+        else if(total >= 1000){
+            star3.setVisibility(View.VISIBLE);
+        }
+        else if(total >= 5000){
+            star4.setVisibility(View.VISIBLE);
+        }
+        else if(total >= 10000){
+            star5.setVisibility(View.VISIBLE);
         }
     }
 }
